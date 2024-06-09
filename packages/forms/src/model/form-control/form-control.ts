@@ -7,7 +7,7 @@ import type { ControlValueAccessor, Validator } from '../../types';
  *
  * The type parameter ControlValue represents the value type of the control (`control.value`).
  */
-export class FormControl<ControlValue> extends AbstractControl<ControlValue> {
+export class FormControl<ControlValue = any> extends AbstractControl<ControlValue> {
   /** @internal */
   private writeValue?: (value: ControlValue) => void;
 

@@ -3,7 +3,7 @@ import { AbstractControl } from '../../abstract-control';
 import type { DeepPartial, OptionalProperties, Validator } from '../../types';
 import type { FormControl } from '../form-control/form-control';
 
-export type Controls = Record<string, AbstractControl<any>>;
+export type Controls = Record<string, AbstractControl>;
 
 export type FormGroupValueType<T extends Controls> = {
   [K in keyof T]: T[K] extends FormControl<infer U> | undefined
@@ -137,7 +137,7 @@ export class FormGroup<C extends Controls = Controls> extends AbstractControl<Fo
    *
    * @public
    */
-  public getControlName(control: AbstractControl<any>): keyof C | null {
+  public getControlName(control: AbstractControl): keyof C | null {
     const entry = Object.entries(this.controls).find((pair) => pair.at(1) === control);
 
     if (!entry) {
@@ -157,8 +157,8 @@ export class FormGroup<C extends Controls = Controls> extends AbstractControl<Fo
    * @public
    */
   public contains<K extends keyof C>(nameOrControl: K): boolean;
-  public contains(nameOrControl: AbstractControl<any>): boolean;
-  public contains(nameOrControl: keyof C | AbstractControl<any>): boolean {
+  public contains(nameOrControl: AbstractControl): boolean;
+  public contains(nameOrControl: keyof C | AbstractControl): boolean {
     if (nameOrControl instanceof AbstractControl) {
       return Object.values(this.controls).includes(nameOrControl);
     }
@@ -299,8 +299,8 @@ export class FormGroup<C extends Controls = Controls> extends AbstractControl<Fo
    */
   public override markAsTouched(options?: EventOptions): void;
   /** @internal */
-  public override markAsTouched<T extends AbstractControl<any>>(options: InternalEventOptions<T>): void;
-  public override markAsTouched<T extends AbstractControl<any>>(options: InternalEventOptions<T> = {}): void {
+  public override markAsTouched<T extends AbstractControl>(options: InternalEventOptions<T>): void;
+  public override markAsTouched<T extends AbstractControl>(options: InternalEventOptions<T> = {}): void {
     super.markAsTouched(options);
     this._forEachChild((control) => control.markAsTouched({ emitEvent: options.emitEvent, onlySelf: true }));
   }
@@ -323,8 +323,8 @@ export class FormGroup<C extends Controls = Controls> extends AbstractControl<Fo
    */
   public override markAsUntouched(options?: EventOptions): void;
   /** @internal */
-  public override markAsUntouched<T extends AbstractControl<any>>(options: InternalEventOptions<T>): void;
-  public override markAsUntouched<T extends AbstractControl<any>>(options: InternalEventOptions<T> = {}): void {
+  public override markAsUntouched<T extends AbstractControl>(options: InternalEventOptions<T>): void;
+  public override markAsUntouched<T extends AbstractControl>(options: InternalEventOptions<T> = {}): void {
     super.markAsUntouched(options);
     this._forEachChild((control) => control.markAsUntouched({ emitEvent: options.emitEvent, onlySelf: true }));
   }
@@ -347,8 +347,8 @@ export class FormGroup<C extends Controls = Controls> extends AbstractControl<Fo
    */
   public override markAsDirty(options?: EventOptions): void;
   /** @internal */
-  public override markAsDirty<T extends AbstractControl<any>>(options: InternalEventOptions<T>): void;
-  public override markAsDirty<T extends AbstractControl<any>>(options: InternalEventOptions<T> = {}): void {
+  public override markAsDirty<T extends AbstractControl>(options: InternalEventOptions<T>): void;
+  public override markAsDirty<T extends AbstractControl>(options: InternalEventOptions<T> = {}): void {
     super.markAsDirty(options);
     this._forEachChild((control) => control.markAsDirty({ emitEvent: options.emitEvent, onlySelf: true }));
   }
@@ -371,8 +371,8 @@ export class FormGroup<C extends Controls = Controls> extends AbstractControl<Fo
    */
   public override markAsPristine(options?: EventOptions): void;
   /** @internal */
-  public override markAsPristine<T extends AbstractControl<any>>(options: InternalEventOptions<T>): void;
-  public override markAsPristine<T extends AbstractControl<any>>(options: InternalEventOptions<T> = {}): void {
+  public override markAsPristine<T extends AbstractControl>(options: InternalEventOptions<T>): void;
+  public override markAsPristine<T extends AbstractControl>(options: InternalEventOptions<T> = {}): void {
     super.markAsPristine(options);
     this._forEachChild((control) => control.markAsPristine({ emitEvent: options.emitEvent, onlySelf: true }));
   }
@@ -399,7 +399,7 @@ export class FormGroup<C extends Controls = Controls> extends AbstractControl<Fo
   }
 
   /** @internal */
-  private _forEachChild(fn: (control: AbstractControl<any>) => void): void {
+  private _forEachChild(fn: (control: AbstractControl) => void): void {
     Object.values(this.controls).forEach(fn);
   }
 
