@@ -4,5 +4,9 @@
       "mode": "auto"
     }
   ],
-  "cssModules.camelCase": true
+  "cssModules.camelCase": true,
+  "editor.tokenColorCustomizations": {
+    "comments": "",
+    "textMateRules": []
+  }
 }
